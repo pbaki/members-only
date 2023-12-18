@@ -3,13 +3,24 @@ extends layout
 block content
   if user 
     h1= title
+    h2 Welcome back #{user.username}
+    <a href="/log-out">LOG OUT</a>
+    form(action="/addmessage", method="POST")
+      label(for="message") New Message: 
+      textarea(name="message", cols="30", rows="3" , id="message")
+      br
+      button Create Message
     if messages 
-      ul 
       for message in messages 
-        li #{message.message}
-        p #{message.user} / #{message.date}
+        p Message: #{message.message}
+        p User: #{message.user.username} / Date: #{message.dateConverted}
+        if user.isAdmin
+          form(action="deletemessage", method="POST")
+            input(type="hidden", name="id", value=message.id)
+            button Delete message
+        hr
     else 
-      p There are mo messages
+      p There are no messages
   else
     h1= title
     h2 Log in to see who and when typed a message!
@@ -21,10 +32,10 @@ block content
         button Log In
     p No account yet? 
       a(href="/signup") Sign up
-    if messages 
-      ul 
+    if messages  
       for message in messages 
-        li #{message.message}
+        p Message: #{message.message}
         p Hidden User / Hidden Date
+        hr
     else 
       p There are no messages

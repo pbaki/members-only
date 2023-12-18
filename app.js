@@ -5,6 +5,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
 
+const Message = require("./models/message");
+const User = require("./models/user");
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/sign-up");
 
@@ -25,6 +28,19 @@ async function main() {
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+// Passport
+const session = require("express-session");
+const passport = require("passport");
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(logger("dev"));
 app.use(express.json());

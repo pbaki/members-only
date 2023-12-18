@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true, maxLength: 100 },
   password: { type: String, required: true, maxLength: 100 },
   messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
-  isAdmin: { type: Boolean },
+  isAdmin: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("User", UserSchema);
