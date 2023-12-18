@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  if user 
+    h1= title
+    if messages 
+      ul 
+      for message in messages 
+        li #{message.message}
+        p #{message.user} / #{message.date}
+    else 
+      p There are mo messages
+  else
+    h1= title
+    h2 Log in to see who and when typed a message!
+    form(action="", method="POST")
+        label(for="username") Username: 
+        input(name="username", placeholder="username", type="text" id="username") 
+        label(for="password") Password: 
+        input(name="password", type="password" id="password") 
+        button Log In
+    p No account yet? 
+      a(href="/signup") Sign up
+    if messages 
+      ul 
+      for message in messages 
+        li #{message.message}
+        p Hidden User / Hidden Date
+    else 
+      p There are no messages

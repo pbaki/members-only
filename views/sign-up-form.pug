@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    if user 
+        h1 You are already signed up 
+    else
+        h1 Sign Up
+        form(action="", method="POST")
+            label(for="username") Username
+            input(name="username", placeholder="username", type="text" id="username")
+            label(for="password") Password
+            input(name="password", type="password" id="password")
+            br
+            label(for="isAdmin") Is Admin
+            input(type="checkBox", name="isAdmin", id="isAdmin")
+            br
+            button Sign Up
